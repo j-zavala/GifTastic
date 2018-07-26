@@ -4,18 +4,25 @@ let cartoons = ["adventure time", "samurai jack", "archer", "futurama", "the sim
 
 // Your app should take the topics in this array and create buttons in your HTML.
 cartoons.forEach(element => {
-  console.log(element);
 
-  // Get reference to existing tbody element, create new li and button elements
+  // Get reference to existing ul element, create new li and button elements
   let ul = $("ul");
   let li = $("<li>Hello");
+  //launch onclick functionality into button variable
   let button = $("<button>",
   {
       text: element,
-      click: function () { 
+      value: element,
+      click: function () {
+
+        //This is my API key
+        let APIKey = "lf6U0Z6odKx17BGv7FlBn4YNEPUW7UTl";
+
+        //This is value of the button clicked (that is, the specific cartoon user wants)
+        let q = $(this).val();
 
         // When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=lf6U0Z6odKx17BGv7FlBn4YNEPUW7UTl&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + q + "&api_key="+ APIKey + "&limit=10";
 
         //Makes a request to the server for specific data and returns that data
         $.ajax({
@@ -25,20 +32,18 @@ cartoons.forEach(element => {
 
           //Loops through each object in response object; goal is to target img url & rating
           response.data.forEach(element => {
-            //create a element and add url.
-            let url = $("<a>").attr("href", element.url);
-            // Then create img element and attach previous element.
-            let img = $("<img>").append(url);
-            // attach img with url to main element
-            $("main").append(img);
-
-            console.log(element);
+            //create img element and add url to src & alt attribute.
+            var image = $("<img>").attr({
+              "src": element.images.downsized.url,
+              "alt": "gif"
+            });
+            //attach img element to main element
+            $("main").append(image);
+            
+            
+            // console.log(element.images.looping.mp4);
             
           });
-
-            // let img =  $("<img>");
-            // img.attr("src", response);
-
 
         });
         
@@ -52,6 +57,11 @@ cartoons.forEach(element => {
   ul.append(li).append(button).css({
     "display": "flex",
     "flex-direction": "row"
+  });
+
+  $("img").css({
+    width: "165px", 
+    height: "135px"
   });
 
 });
@@ -95,3 +105,8 @@ cartoons.forEach(element => {
     //     let body = $("body");
     //     body.append(response);
     // });
+
+               // let url = $("<a>").attr("href", element.url);
+            // Then create img element and attach previous element.
+            // let img = $("<img>").append(url);
+            // attach img with url to main element
