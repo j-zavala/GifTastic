@@ -32,19 +32,21 @@ cartoons.forEach(element => {
 
           //Loops through each object in response object; goal is to target img url & rating
           response.data.forEach(element => {
+
+            var element = element;
+            
             //create img element and add url to src & alt attribute.
             var image = $("<img>").attr({
-              "src": element.images.downsized.url,
-              "alt": "gif"
+              "src": element.images.original_still.url,
+              "alt": "gif",
+              "data-still": element.images.original_still.url,
+              "data-animate": element.images.original.url,
+              "data-state": "still",
+              "class": "gif"
             });
             //attach img element to main element
             $("main").append(image);
-            
-            
-            // console.log(element.images.looping.mp4);
-            
           });
-
         });
         
 
@@ -54,17 +56,30 @@ cartoons.forEach(element => {
         
       }
   });
+
   ul.append(li).append(button).css({
     "display": "flex",
     "flex-direction": "row"
   });
 
-  $("img").css({
-    width: "165px", 
-    height: "135px"
-  });
-
 });
+
+  $(document).ready(function() {
+    $("img").css({
+      width: "165px", 
+      height: "135px"
+    });
+
+    $(".gif").on("click", function() {
+      console.log("You've clicked on image");
+      // $("img").attr({
+      //   "src": element.images.original.url,
+      //   "alt": "gif",
+      //   "class": "animated"
+      // });
+  
+    });
+  });
 
 
 // Try using a loop that appends a button for each string in the array.
@@ -82,31 +97,3 @@ cartoons.forEach(element => {
 
 // Add a form to your page takes the value from a user input box and adds it into your topics array. Then make a function call that takes each topic in the array remakes the buttons on the page.
 
-
-
-
-
-
-
-// $( document ).ready(function() {
-    
-// });
-    
-    
-    
-    // Example queryURL for Giphy API
-    // var queryURL = "https://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=lf6U0Z6odKx17BGv7FlBn4YNEPUW7UTl&limit=5";
-
-    // $.ajax({
-    //   url: queryURL,
-    //   method: "GET"
-    // }).then(function(response) {
-    //     console.log(response);
-    //     let body = $("body");
-    //     body.append(response);
-    // });
-
-               // let url = $("<a>").attr("href", element.url);
-            // Then create img element and attach previous element.
-            // let img = $("<img>").append(url);
-            // attach img with url to main element
