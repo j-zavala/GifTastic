@@ -52,7 +52,9 @@ let addCSS = (ul, li, button) => {
   ul.append(li).append(button).css({
     "display": "flex",
     "flex-direction": "row",
-    "flex-wrap": "wrap"
+    "flex-wrap": "wrap",
+    "justify-content": "center",
+    "align-items": "center"
   });
 }; //END - addCSS
 
