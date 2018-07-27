@@ -17,28 +17,44 @@ let createButtons = () => {
     addCSS(ul, li, button);
   });
 }; //END - createButtons
-//------------------------------------------------
-let addCSS = (ul, li, button) => {
-
-    //add css styling to buttons
-    ul.append(li).append(button).css({
-      "display": "flex",
-      "flex-direction": "row"
-    });
-}; //END - addCSS
 
 //------------------------------------------------
+let createSingleButton = (value) => {
+  let ul = $("ul");
+  let li = $("<li>Hello");
+  let button = $("<button>", { 
+    text: value, 
+    value: value
+  });
+  addCSS(ul, li, button);
+};
+
+//------------------------------------------------
+
 let addButton = () => {
 
-  $("#addAnimal").on("click", function(){
+  $("#addAnimal").on("click", function(event){
     // event.preventDefault() can be used to prevent an event's default behavior.
     // Here, it prevents the submit button from trying to submit a form when clicked
     event.preventDefault();
 
-    let value = $("animal-input").val();
-    console.log(value);
+    let value = $("#animal-input").val();
+    createSingleButton(value);
+    buttonClick();
   });
 }; //END - addButton
+
+//------------------------------------------------
+
+let addCSS = (ul, li, button) => {
+
+  //add css styling to buttons
+  ul.append(li).append(button).css({
+    "display": "flex",
+    "flex-direction": "row",
+    "flex-wrap": "wrap"
+  });
+}; //END - addCSS
 
 //------------------------------------------------
 let buttonClick = () => {
@@ -106,9 +122,9 @@ let gifClick = () => {
 
 
 $(document).ready(function() {
-  // createButtons();
-  // buttonClick();
-  // gifClick();
+  createButtons();
+  buttonClick();
+  gifClick();
   addButton();
 
   $(".gif").on("click", function() {
